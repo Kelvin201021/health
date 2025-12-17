@@ -5,6 +5,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from django.utils import timezone
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
@@ -13,6 +14,14 @@ import json
 
 from .models import BloodPressureReading, WatchSync, WatchBloodPressure
 from .forms import BPReadingForm
+
+
+# ======================================================
+#  CUSTOM LOGIN VIEW
+# ======================================================
+class MyLoginView(LoginView):
+    """Custom login view using the registration/login.html template."""
+    template_name = 'registration/login.html'
 
 
 # ======================================================
