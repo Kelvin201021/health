@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: hypertension-system
+    runtime: python
+    buildCommand: pip install -r requirements.txt && cd core_fixed && python manage.py collectstatic --noinput && python manage.py migrate --noinput
+    startCommand: cd core_fixed && gunicorn core_fixed.wsgi:application
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        sync: false
+      - key: DEBUG
+        value: "False"
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REDIRECT_URI
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hypertension-db
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+
+databases:
+  - name: hypertension-db
+    plan: free
