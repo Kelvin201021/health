@@ -2,6 +2,8 @@
 # Quick Access Placeholder Views
 # -----------------------------
 
+from django.shortcuts import render
+
 def bp_home(request):
     return render(request, "sections/bp_home.html")
 
@@ -19,3 +21,6 @@ def devices_home(request):
 
 def reminders_home(request):
     return render(request, "sections/reminders_home.html")
+
+def landing_page(request):
+    return render(request, 'landing.html')

@@ -2,6 +2,15 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
+
+def landing_page(request):
+    """
+    Public landing page for the Hypertension Management System.
+    No login required.
+    """
+    return render(request, 'landing.html')
+
+
 def googlefit_connect(request):
     return HttpResponse("Google Fit connect placeholder working.")
 

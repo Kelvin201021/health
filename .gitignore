@@ -15,11 +15,22 @@ db.sqlite3
 db.sqlite3-journal
 media/
 
+# Backup files - NEVER commit
+*.bak
+*.backup
+*~
+
+# Environment & Secrets - NEVER commit
+.env
+.env.*
+*.env
+secrets.py
+local_settings.py
+
 # Node / React
 node_modules/
 build/
 dist/
-.env
 
 # Editor
 .vscode/

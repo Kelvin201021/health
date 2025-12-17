@@ -2,11 +2,12 @@
 Django settings for core_fixed project.
 """
 
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-REPLACE-LATER-FOR-PRODUCTION"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-dev-only-replace-in-production")
 
 DEBUG = True
 
@@ -142,9 +143,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # GOOGLE FIT OAUTH SETTINGS
 # ============================
 
-GOOGLE_CLIENT_ID = "REMOVED_SECRET"
-GOOGLE_CLIENT_SECRET = "REMOVED_SECRET"
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
 
-GOOGLE_REDIRECT_URI = "http://127.0.0.1:8000/googlefit/callback/"
+GOOGLE_REDIRECT_URI = os.environ.get("GOOGLE_REDIRECT_URI", "http://127.0.0.1:8000/googlefit/callback/")
 GOOGLE_AUTH_SCOPE = "https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.heart_rate.read"
 
