@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Watch BP Trend{% endblock %}
+
+{% block content %}
+<div class="container p-4">
+  <h1 class="mb-3">Watch Blood Pressure Trend</h1>
+  <p class="lead">Large-font, high-contrast chart for easy reading.</p>
+
+  <div class="card p-4" style="height:520px;">
+    <canvas id="watchBpChart"></canvas>
+  </div>
+
+  <div class="mt-4">
+    <a href="{% url 'hypertension:bp_list' %}" class="btn btn-secondary btn-lg">Back to Readings</a>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const labels = JSON.parse('{{ labels_json|escapejs }}') || [];
+  const systolic = JSON.parse('{{ systolic_json|escapejs }}') || [];
+  const diastolic = JSON.parse('{{ diastolic_json|escapejs }}') || [];
+
+  const ctx = document.getElementById('watchBpChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Systolic',
+          data: systolic,
+          borderColor: '#007800',
+          backgroundColor: 'rgba(0,120,0,0.08)',
+          borderWidth: 4,
+          pointRadius: 5,
+          tension: 0.2
+        },
+        {
+          label: 'Diastolic',
+          data: diastolic,
+          borderColor: 'rgba(0,120,0,0.8)',
+          borderDash: [6,3],
+          borderWidth: 4,
+          pointRadius: 5,
+          tension: 0.2
+        }
+      ]
+    },
+    options: {
+      plugins: { legend: { display: true, labels: { font: { size: 20 } } } },
+      scales: {
+        y: { min: 40, max: 200, ticks: { stepSize: 10, font: { size: 18 } }, title: { display: true, text: 'mmHg', font: { size: 18 } } },
+        x: { ticks: { font: { size: 16 }, autoSkip: true, maxTicksLimit: 8 } }
+      },
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
+});
+</script>
+{% endblock %}

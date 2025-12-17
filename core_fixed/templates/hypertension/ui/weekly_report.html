@@ -1,0 +1,17 @@
+{% load static %}
+<div class="sodium-card sodium-weekly-report">
+  <h3>Weekly Report</h3>
+  <div class="week-range" id="week-range">Week: — to —</div>
+  <div id="weekly-chart" class="weekly-chart">(chart)</div>
+  <div class="weekly-stats">
+    <div>Average per day: <strong id="weekly-avg">0 mg</strong></div>
+    <div>Days over limit: <strong id="weekly-over">0</strong></div>
+  </div>
+  <div class="weekly-highlights">
+    <h4>Top salt days</h4>
+    <ul id="weekly-top-days"><li>—</li></ul>
+  </div>
+  <div class="weekly-actions">
+    <button id="download-weekly-pdf" class="btn btn-secondary">Download PDF</button>
+  </div>
+</div>

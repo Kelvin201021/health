@@ -1,0 +1,17 @@
+{% load static %}
+<div class="sodium-card sodium-daily-summary">
+  <h3>Daily Summary</h3>
+  <div class="summary-metrics">
+    <div class="metric">Total: <strong id="summary-total">0 mg</strong></div>
+    <div class="metric">Percent: <strong id="summary-percent">0%</strong></div>
+    <div class="metric">Highest meal: <strong id="summary-highest">—</strong></div>
+  </div>
+  <div id="summary-top-foods" class="top-foods">
+    <h4>Highest-salt foods</h4>
+    <ul id="top-foods-list"><li>—</li></ul>
+  </div>
+  <div class="summary-actions">
+    <button id="download-daily-pdf" class="btn btn-secondary">Download PDF</button>
+    <button id="share-daily" class="btn btn-primary">Share with clinician</button>
+  </div>
+</div>

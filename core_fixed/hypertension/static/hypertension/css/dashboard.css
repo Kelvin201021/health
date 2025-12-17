@@ -1,0 +1,7 @@
+body { font-size: 18px; }
+.tile { display:flex; gap:12px; align-items:center; padding:12px; border-radius:8px; box-shadow:0 2px 6px rgba(15,23,42,0.04); background:#ffffff; cursor:pointer; text-decoration:none; color:inherit; }
+.tile .tile-icon { font-size:32px; width:48px; text-align:center; }
+.tile-title { font-weight:700; }
+.tile-sub { color:#6b7280; font-size:14px; }
+.bp-large { font-size:36px; font-weight:800; }
+.card { border-radius:10px; }

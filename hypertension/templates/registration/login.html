@@ -1,0 +1,16 @@
+﻿{% extends "base.html" %}
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% if next %}
+          <input type="hidden" name="{{ redirect_field_name|default:'next' }}" value="{{ next }}">
+      {% endif %}
+      <button type="submit">Login</button>
+  </form>
+
+  <p style="margin-top:10px;">
+    Don't have an account? <a href="{% url 'signup' %}?next={{ next|default:request.path }}">Sign up</a>.
+  </p>
+{% endblock %}

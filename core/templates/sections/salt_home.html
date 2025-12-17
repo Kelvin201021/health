@@ -1,0 +1,42 @@
+﻿{% extends "base.html" %}
+{% block title %}Salt Intake — Hypertension System{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="card shadow-sm mx-auto" style="max-width:760px;">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">Salt Intake</h2>
+        <a class="btn btn-outline-primary" href="#">Log salt</a>
+      </div>
+
+      <p class="text-muted mt-2">Track daily salt intake — lowering salt can reduce blood pressure.</p>
+
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <div class="p-3 border rounded bg-light">
+            <h5>Today's total</h5>
+            <div class="display-6 fw-bold">3.2 g</div>
+            <div class="text-muted small">Recommended: &lt;5 g/day</div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="p-3 border rounded">
+            <h5>Tips</h5>
+            <ul class="mb-0">
+              <li>Choose fresh foods, not processed.</li>
+              <li>Limit added salt while cooking.</li>
+              <li>Read labels — look for sodium content.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-muted small">
+        Small salt reductions give measurable benefits to blood pressure over weeks.
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

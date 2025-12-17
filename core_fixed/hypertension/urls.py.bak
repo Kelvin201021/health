@@ -1,0 +1,24 @@
+﻿from django.urls import path
+from . import views
+
+app_name = "hypertension"
+
+urlpatterns = [
+    # Dashboard at app root
+    path("", views.dashboard_view, name="dashboard"),
+
+    # BP CRUD (moved under /readings/)
+    path("readings/", views.bp_list, name="bp_list"),
+    path("readings/new/", views.bp_create, name="bp_create"),
+    path("readings/<int:pk>/edit/", views.bp_edit, name="bp_edit"),
+    path("readings/<int:pk>/delete/", views.bp_delete, name="bp_delete"),
+
+    # Quick Access / section pages (used by dashboard tiles)
+    path("bp/home/", views.bp_home, name="bp_home"),
+    path("medications/", views.medications_home, name="medications_home"),
+    path("salt/", views.salt_home, name="salt_home"),
+    path("food/", views.food_home, name="food_home"),
+    path("devices/", views.devices_home, name="devices_home"),
+    path("devices/connect/", views.connect_watch, name="connect_watch"),
+    path("reminders/", views.reminders_home, name="reminders_home"),
+]

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Hypertension System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; margin:0; background:#f5f5f7; }
+        nav { background:#1e293b; color:#fff; padding:10px 20px; display:flex; justify-content:space-between; align-items:center; }
+        nav a { color:#fff; text-decoration:none; margin-right:12px; }
+        .container { max-width:960px; margin:24px auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,0.08); }
+    </style>
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="{% url 'bp_list' %}">Hypertension System</a>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                <span style="margin-right:12px;">Hi, {{ user.username }}</span>
+                <a href="{% url 'bp_create' %}">Add Reading</a>
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="margin-left:10px;padding:6px 12px;border-radius:4px;border:none;background:#f97316;color:white;">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+                <a href="{% url 'signup' %}?next={{ request.path }}" style="margin-left:8px;">Sign up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

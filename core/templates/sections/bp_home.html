@@ -1,0 +1,83 @@
+﻿{% extends "base.html" %}
+{% block title %}Blood Pressure — Hypertension System{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <div class="card shadow-sm mx-auto" style="max-width:900px;">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Blood Pressure</h2>
+        <a class="btn btn-success" href="{% url 'hypertension:bp_create' %}">New reading</a>
+      </div>
+
+      <p class="text-muted">View readings and a simple chart of your blood pressure over time.</p>
+
+      <div class="card my-3 p-3">
+        <h5 class="mb-3">Blood Pressure Trend</h5>
+        <!-- Chart canvas placeholder -->
+        <div style="height:420px" class="chart-card">
+          <canvas id="bpChart" aria-label="Blood pressure chart"></canvas>
+        </div>
+      </div>
+
+      <h4 class="mt-4">Recent readings</h4>
+      <div class="table-responsive">
+        <table class="table mt-2">
+          <thead>
+            <tr>
+              <th>Time</th><th>Systolic</th><th>Diastolic</th><th>Pulse</th><th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in readings %}
+              <tr>
+                <td>{{ r.recorded_at|date:"Y-m-d H:i" }}</td>
+                <td>{{ r.systolic }}</td>
+                <td>{{ r.diastolic }}</td>
+                <td>{{ r.pulse|default:"—" }}</td>
+                <td>{{ r.notes|default:"—" }}</td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="5" class="text-muted">No readings yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-3 text-muted small">
+        Tip: measure twice in the morning and evening, sit quietly for 5 minutes before measuring.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Minimal inline script to draw chart if labels/systolic/diastolic are present -->
+{% block extra_scripts %}
+<script>
+(function(){
+  try{
+    const labels = {{ labels_json|default:"[]" }};
+    const systolic = {{ systolic_json|default:"[]" }};
+    const diastolic = {{ diastolic_json|default:"[]" }};
+    if(labels && labels.length && document.getElementById('bpChart') && window.Chart){
+      const ctx = document.getElementById('bpChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            { label: 'Systolic', data: systolic, fill:false, tension:0.2 },
+            { label: 'Diastolic', data: diastolic, fill:false, tension:0.2 }
+          ]
+        },
+        options: {
+          scales: { y: { beginAtZero:false, suggestedMin:40 } },
+          plugins: { legend: { position: 'top' } }
+        }
+      });
+    }
+  }catch(e){ console && console.warn(e) }
+})();
+</script>
+{% endblock %}
+{% endblock %}
